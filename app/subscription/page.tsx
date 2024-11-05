@@ -1,5 +1,3 @@
-export default function Subscription () {
-  return (
-    <h1>Subscription</h1>
-  )
+export default function Subscription() {
+  return <h1 className="item-center flex">Subscription</h1>;
 }
