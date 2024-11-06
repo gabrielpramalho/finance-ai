@@ -1,27 +1,38 @@
 import Image from "next/image";
 import { Button } from "../_components/ui/button";
 import { LogInIcon } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const { userId } = await auth();
+
+  if (userId) {
+    redirect("/");
+  }
+
   return (
     <div className="grid h-full grid-cols-2">
-      <div className="flex h-full flex-col justify-center px-8 max-w-[550px] mx-auto gap-8">
+      <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center gap-8 px-8">
         <Image src="/logo.svg" alt="Finance AI" width={173} height={39} />
 
         <div className="space-y-3">
           <h1 className="text-4xl font-bold">Bem vindo</h1>
 
           <p className="text-muted-foreground">
-            A Finance AI é uma plataforma de gestão financeira que utiliza IA para
-            monitorar suas movimentações, e oferecer insights personalizados,
-            facilitando o controle do seu orçamento.
+            A Finance AI é uma plataforma de gestão financeira que utiliza IA
+            para monitorar suas movimentações, e oferecer insights
+            personalizados, facilitando o controle do seu orçamento.
           </p>
         </div>
 
-        <Button variant="outline">
-          <LogInIcon className="mr-2" />
-          Fazer login ou criar conta
-        </Button>
+        <SignInButton>
+          <Button variant="outline">
+            <LogInIcon className="mr-2" />
+            Fazer login ou criar conta
+          </Button>
+        </SignInButton>
       </div>
 
       <div className="relative h-full w-full">
