@@ -5,6 +5,7 @@ import { SummaryCards } from "./_components/summary-cards";
 import { TimeSelect } from "./_components/time-select";
 import { isMatch, format } from "date-fns";
 import { TransactionsPieChart } from "./_components/transactions-pie-chart";
+import { getDashboard } from "../_data/get-dashboard";
 
 interface HomeProps {
   searchParams: {
@@ -12,7 +13,7 @@ interface HomeProps {
   };
 }
 
-export default function Home({ searchParams: { month } }: HomeProps) {
+export default async function Home({ searchParams: { month } }: HomeProps) {
   const { userId } = auth();
 
   if (!userId) {
@@ -24,8 +25,11 @@ export default function Home({ searchParams: { month } }: HomeProps) {
   const currentDateInMonth = format(new Date(), "MM");
 
   if (monthIsInvalid) {
+    month = currentDateInMonth
     redirect(`?month=${currentDateInMonth}`);
   }
+
+  const dashboardData = await getDashboard(month)
 
   return (
     <>
@@ -39,9 +43,9 @@ export default function Home({ searchParams: { month } }: HomeProps) {
 
         <div className="grid grid-cols-[2fr,1fr]">
           <div className="space-y-6">
-            <SummaryCards month={month} />
+            <SummaryCards {...dashboardData} />
             <div className="grid grid-cols-3 gap-6">
-              <TransactionsPieChart />
+              <TransactionsPieChart {...dashboardData} />
             </div>
           </div>
         </div>
