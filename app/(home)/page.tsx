@@ -6,6 +6,7 @@ import { TimeSelect } from "./_components/time-select";
 import { isMatch, format } from "date-fns";
 import { TransactionsPieChart } from "./_components/transactions-pie-chart";
 import { getDashboard } from "../_data/get-dashboard";
+import { ExpensesPerCategory } from "./_components/expenses-per-category";
 
 interface HomeProps {
   searchParams: {
@@ -25,11 +26,11 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
   const currentDateInMonth = format(new Date(), "MM");
 
   if (monthIsInvalid) {
-    month = currentDateInMonth
+    month = currentDateInMonth;
     redirect(`?month=${currentDateInMonth}`);
   }
 
-  const dashboardData = await getDashboard(month)
+  const dashboardData = await getDashboard(month);
 
   return (
     <>
@@ -46,6 +47,10 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
             <SummaryCards {...dashboardData} />
             <div className="grid grid-cols-3 gap-6">
               <TransactionsPieChart {...dashboardData} />
+
+              <ExpensesPerCategory
+                expensesPerCategory={dashboardData.totalExpensePerCategory}
+              />
             </div>
           </div>
         </div>
