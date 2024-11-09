@@ -37,16 +37,16 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
     <>
       <Navbar />
 
-      <div className="space-y-6 p-6">
+      <div className="flex flex-col space-y-6 overflow-hidden p-6">
         <div className="flex justify-between">
           <h1 className="text-xl font-bold">Dashboard</h1>
           <TimeSelect />
         </div>
 
-        <div className="grid grid-cols-[2fr,1fr] gap-6">
-          <div className="space-y-6">
+        <div className="grid grid-cols-[2fr,1fr] gap-6 overflow-hidden">
+          <div className="flex flex-col space-y-6 overflow-hidden">
             <SummaryCards {...dashboardData} />
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-6 overflow-hidden">
               <TransactionsPieChart {...dashboardData} />
 
               <ExpensesPerCategory
