@@ -19,9 +19,10 @@ import Markdown from "react-markdown";
 
 interface AiReportButtonProps {
   month: string;
+  hasPremiumPlan: boolean
 }
 
-export function AiReportButton({ month }: AiReportButtonProps) {
+export function AiReportButton({ month, hasPremiumPlan }: AiReportButtonProps) {
   const [report, setReport] = useState<string | null>();
   const [reportIsLoading, setReportIsLoading] = useState(false);
 
@@ -40,7 +41,7 @@ export function AiReportButton({ month }: AiReportButtonProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="font-bold">
+        <Button variant="outline" className="font-bold" disabled={!hasPremiumPlan}>
           Relatório de IA
           <BotIcon />
         </Button>
