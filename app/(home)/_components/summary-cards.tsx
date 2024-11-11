@@ -7,14 +7,20 @@ import {
 import { SummaryCard } from "./summary-card";
 
 interface SummaryCardsProps {
-  balance: number
-  investmentsTotal: number
-  depositsTotal: number
-  expensesTotal: number
+  balance: number;
+  investmentsTotal: number;
+  depositsTotal: number;
+  expensesTotal: number;
+  userCanAddTransaction: boolean;
 }
 
-export async function SummaryCards({ balance, depositsTotal, expensesTotal, investmentsTotal }: SummaryCardsProps) {
-
+export async function SummaryCards({
+  balance,
+  depositsTotal,
+  expensesTotal,
+  investmentsTotal,
+  userCanAddTransaction,
+}: SummaryCardsProps) {
   return (
     <div className="space-y-6">
       <SummaryCard
@@ -22,6 +28,7 @@ export async function SummaryCards({ balance, depositsTotal, expensesTotal, inve
         title="Saldo"
         amount={balance}
         size="lg"
+        userCanAddTransaction={userCanAddTransaction}
       />
 
       <div className="grid grid-cols-3 gap-6">

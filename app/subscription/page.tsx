@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "../_components/ui/card";
 import { CheckIcon, XIcon } from "lucide-react";
 import { AcquireButton } from "./_components/acquire-button";
 import { Badge } from "../_components/ui/badge";
+import { getCurrentMonthTransactions } from "../_data/get-current-month-transactions";
 
 export default async function Subscription() {
   const { userId } = auth();
@@ -17,6 +18,8 @@ export default async function Subscription() {
 
   const hasPremiumPlan = user.publicMetadata.subscriptionPlan == "premium";
 
+  const currentMonthTransactions = await getCurrentMonthTransactions()
+
   return (
     <>
       <Navbar />
@@ -27,7 +30,9 @@ export default async function Subscription() {
           <Card className="w-[450px]">
             <CardHeader className="relative border-b border-solid py-8">
               {!hasPremiumPlan && (
-                <Badge className="absolute left-4 top-4 bg-primary/10 text-primary">Ativo</Badge>
+                <Badge className="absolute left-4 top-4 bg-primary/10 text-primary">
+                  Ativo
+                </Badge>
               )}
               <h2 className="text-center text-2xl font-semibold">
                 Plano Básico
@@ -41,7 +46,7 @@ export default async function Subscription() {
             <CardContent className="space-y-6 py-8">
               <div className="flex items-center gap-3">
                 <CheckIcon className="text-primary" />
-                <p>Apenas 10 transações por mês (9/10)</p>
+                <p>Apenas 10 transações por mês ({currentMonthTransactions}/10)</p>
               </div>
               <div className="flex items-center gap-3">
                 <XIcon />
@@ -56,7 +61,9 @@ export default async function Subscription() {
           <Card className="w-[450px]">
             <CardHeader className="relative border-b border-solid py-8">
               {hasPremiumPlan && (
-                <Badge className="absolute left-4 top-4 bg-primary/10 text-primary">Ativo</Badge>
+                <Badge className="absolute left-4 top-4 bg-primary/10 text-primary">
+                  Ativo
+                </Badge>
               )}
               <h2 className="text-center text-2xl font-semibold">
                 Plano Premium
